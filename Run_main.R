@@ -1,4 +1,7 @@
 # Main script execution
+#sournce the functions from script
+source("Functions.R")
+
 # Step 1: Create a project
 project_id <- create_project(
   title = "New project from R zisis",
