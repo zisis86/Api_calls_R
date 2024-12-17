@@ -4,7 +4,7 @@ library(dplyr)
 library(tidyr)
 
 source("helpers.R")  # Contains transform_ontology_string, get_GO_subontologies, get_all_ontologies, isOntologyValid
-source("constant_variables.R")  # Contains url, results_path
+source("constant_variables.R")  # Contains url, results_path 
 
 get_status_message <- function(status) {
   message_mapping <- list(
