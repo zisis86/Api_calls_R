@@ -6,6 +6,7 @@ library(tidyr)
 source("helpers.R")  # Contains transform_ontology_string, get_GO_subontologies, get_all_ontologies, isOntologyValid
 source("constant_variables.R")  # Contains url, results_path 
 
+#Function to get status
 get_status_message <- function(status) {
   message_mapping <- list(
     'RUNNING' = "The tool's execution is not yet complete. Please try again later...",
@@ -20,6 +21,7 @@ empty_results <- function() {
   return(list(NULL, NULL, NULL, NULL))
 }
 
+#Function to get bioinfominer results
 get_bim_results <- function(headers, experiment_id, ontology = "all") {
   get_drugs_for_bim_results <- function(gene_prioritization) {
     top_genes <- gene_prioritization$top_genes_configuration
@@ -81,7 +83,7 @@ get_bim_results <- function(headers, experiment_id, ontology = "all") {
     return(empty_results())
   }
 }
-
+#Create directories
 create_results_dirs <- function() {
   dir.create(results_path$ea, showWarnings = FALSE, recursive = TRUE)
   dir.create(results_path$gp$top_genes, showWarnings = FALSE, recursive = TRUE)
@@ -89,7 +91,7 @@ create_results_dirs <- function() {
   dir.create(results_path$gp$clusters, showWarnings = FALSE, recursive = TRUE)
   dir.create(results_path$drugs, showWarnings = FALSE, recursive = TRUE)
 }
-
+#Save Bioinfominer results
 save_bim_results <- function(enrichment_analysis, gene_prioritization, drugs, ontology, organism) {
   save_ea_helper <- function(enrichment_analysis, ontology) {
     ea_df <- as.data.frame(enrichment_analysis)
@@ -148,7 +150,7 @@ save_bim_results <- function(enrichment_analysis, gene_prioritization, drugs, on
     save_results_based_on_ontology(enrichment_analysis, gene_prioritization, drugs, ontology)
   }
 }
-
+#Load Bioinfominer Results
 load_bim_results <- function(headers, experiment_id, ontology) {
   ontology <- transform_ontology_string(ontology)
   results <- get_bim_results(headers, experiment_id, ontology)
