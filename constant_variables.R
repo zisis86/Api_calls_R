@@ -1,9 +1,16 @@
+#base_url <- "https://bim3.e-nios.com/api/"
+#api_key <- "leq3vxq1812k4of6xrbdy2ekj43u4up3"
 # url = 'http://localhost:3000/api/'
 url <- 'https://bim3.e-nios.com/api/'
 
-headers <- list(
-  'enios-api-key' = '',
-  'Content-Type' = 'application/json'
+#headers <- list(
+#  'enios-api-key' = '',
+#  'Content-Type' = 'application/json'
+#)
+
+headers <- c(
+  `Content-Type` = "application/json",
+  `enios-api-key` = api_key
 )
 
 results_path <- list(
@@ -15,3 +22,6 @@ results_path <- list(
   ),
   'drugs' = './results/drugs'
 )
+
+
+
