@@ -299,7 +299,9 @@ load_bim_results <- function(headers, experiment_id, ontology) {
   }
 }
 
-#####CHECK the results 
+
+                           
+############################CHECK the results of each function ##########################
 #Testing Each Function
 # 1. Create a project
 new_project <- list(
