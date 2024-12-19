@@ -10,10 +10,10 @@ headers <- c(
   `enios-api-key` = api_key
 )
 
-headers <- add_headers(
-  'enios-api-key' = 'leq3vxq1812k4of6xrbdy2ekj43u4up3',  # Replace with your API key if available
-  'Content-Type' = 'application/json'
-)
+#headers <- add_headers(
+#  'enios-api-key' = 'leq3vxq1812k4of6xrbdy2ekj43u4up3',  # Replace with your API key if available
+#  'Content-Type' = 'application/json'
+#)
 # Function to create a project
 
 create_project <- function(headers, new_project) {
@@ -144,8 +144,22 @@ empty_results <- function() {
 get_bim_results <- function(headers, experiment_id, ontology = "all") {
   get_drugs_for_bim_results <- function(gene_prioritization) {
     top_genes <- gene_prioritization$top_genes_configuration
+    
+    # Check validity of `top_genes`
+    if (is.null(top_genes) || !is.list(top_genes)) {
+      cat("Error: `top_genes_configuration` is not valid.\n")
+      return(list())
+    }
+    
+    # Ensure elements have `gene_symbol`
+    if (!all(sapply(top_genes, function(x) is.list(x) && "gene_symbol" %in% names(x)))) {
+      cat("Error: Some entries in `top_genes` do not contain `gene_symbol`.\n")
+      return(list())
+    }
+    
     gene_symbols <- sapply(top_genes, function(x) x$gene_symbol)
     gene_symbols <- unique(gene_symbols)
+    
     response <- GET(paste0(url, "drugs"), 
                     add_headers(.headers = headers), 
                     query = list(genes = toJSON(gene_symbols)))
@@ -159,6 +173,7 @@ get_bim_results <- function(headers, experiment_id, ontology = "all") {
     }
   }
   
+
   cat("-- Results of BIM experiment with ID: ", experiment_id, " --\n")
   
   response <- GET(paste0(url, "results"),
@@ -288,7 +303,7 @@ load_bim_results <- function(headers, experiment_id, ontology) {
 #Testing Each Function
 # 1. Create a project
 new_project <- list(
-  title = "New project from R_1908",
+  title = "New_ZISISR_1908",
   description = "A project created using R"
 )
 project_id <- create_project(headers, new_project)
@@ -328,26 +343,21 @@ print(get_status_message('INVALID'))     # Expected: "" or "Unknown status"
 print(empty_results())  # Expected: list(NULL, NULL, NULL, NULL)
 
 #3. get_bim_results test
-experiment_id <-"6763f75f1f4fdf4298f50760"
-headers <- c(
-  `Content-Type` = "application/json",
-  `enios-api-key` = api_key
-)
+#experiment_id <-"6763f75f1f4fdf4298f50760"
+#headers <- c(
+#  `Content-Type` = "application/json",
+#  `enios-api-key` = api_key
+#)
 print(headers)
 print(experiment_id)
 print(ontology)
-ontology <- "GO"
+#ontology <- "GO"
 
 results <- get_bim_results(headers, experiment_id)
 print(results)  # Should return a list of enrichment_analysis, gene_prioritization, drugs, and organism
-print(url)
-results
-#Test Invalid Experiment ID:
-experiment_id <- 'invalid_id'
-results <- get_bim_results(headers, experiment_id)
-print(results)  # Should print an error message and return empty results
+
 #4. Save_bim_results
-#Mock Input Data: Prepare mock data for enrichment_analysis, gene_prioritization, and drugs
+#Mock Input Data: Test a  small data for enrichment_analysis, gene_prioritization, and drugs
 enrichment_analysis <- list(sample_data = "example")
 gene_prioritization <- list(top_genes_configuration = data.frame(gene_symbol = c("BRCA1", "TP53")))
 drugs <- list(list(gene = "BRCA1", drugs = list(list(name = "Drug1"), list(name = "Drug2"))))
@@ -365,48 +375,3 @@ ontology <- 'all'
 
 load_bim_results(headers, experiment_id, ontology)
 # Check if files are saved to the correct directories
-
-
-############################ Test the response###################################
-tryCatch({
-  response <- GET(paste0(url, "results"), add_headers(.headers = headers), query = list(experimentId = experiment_id))
-}, error = function(e) {
-  cat("Error in API call:", e$message, "\n")
-  return(empty_results())
-})
-
-
-#Enable verbose logging to inspect the request and response details:
-
-response <- GET(
-  paste0(url, "results"), 
-  add_headers(.headers = headers), 
-  timeout(30), 
-  verbose()
-)
-cat("Response Content:", content(response, "text"), "\n")
-
-##Debugging with Test Calls 
-response <- GET(
-  paste0(url, "results"),
-  add_headers(.headers = headers),
-  timeout(30)
-)
-
-if (status_code(response) == 200) {
-  cat("Success! Parsing results...\n")
-  results <- fromJSON(rawToChar(response$content))
-  print(results)
-} else {
-  cat("Error:", status_code(response), content(response, "text"), "\n")
-}
-
-#Make a test with minimal parameters 
-response <- GET(
-  paste0(url, "results"),
-  add_headers(.headers = headers),
-  query = list(experiment_id = '6763f75f1f4fdf4298f50760'),
-  timeout(30)
-)
-print(status_code(response))
-print(content(response, "text"))
