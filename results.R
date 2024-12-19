@@ -25,8 +25,22 @@ empty_results <- function() {
 get_bim_results <- function(headers, experiment_id, ontology = "all") {
   get_drugs_for_bim_results <- function(gene_prioritization) {
     top_genes <- gene_prioritization$top_genes_configuration
+    
+    # Check validity of `top_genes`
+    if (is.null(top_genes) || !is.list(top_genes)) {
+      cat("Error: `top_genes_configuration` is not valid.\n")
+      return(list())
+    }
+    
+    # Ensure elements have `gene_symbol`
+    if (!all(sapply(top_genes, function(x) is.list(x) && "gene_symbol" %in% names(x)))) {
+      cat("Error: Some entries in `top_genes` do not contain `gene_symbol`.\n")
+      return(list())
+    }
+    
     gene_symbols <- sapply(top_genes, function(x) x$gene_symbol)
     gene_symbols <- unique(gene_symbols)
+    
     response <- GET(paste0(url, "drugs"), 
                     add_headers(.headers = headers), 
                     query = list(genes = toJSON(gene_symbols)))
@@ -40,13 +54,15 @@ get_bim_results <- function(headers, experiment_id, ontology = "all") {
     }
   }
   
+
   cat("-- Results of BIM experiment with ID: ", experiment_id, " --\n")
   
-  response <- GET(paste0(url, "results"), 
-                  add_headers(.headers = headers), 
-                  body = experiment_id, 
-                  encode = "json")
+  response <- GET(paste0(url, "results"),
+                  add_headers(.headers = headers),
+                  query = list(experimentId = experiment_id))
   
+
+  ####
   if (status_code(response) == 200) {
     results <- fromJSON(rawToChar(response$content))
     status <- results$status
@@ -83,7 +99,7 @@ get_bim_results <- function(headers, experiment_id, ontology = "all") {
     return(empty_results())
   }
 }
-#Create directories
+
 create_results_dirs <- function() {
   dir.create(results_path$ea, showWarnings = FALSE, recursive = TRUE)
   dir.create(results_path$gp$top_genes, showWarnings = FALSE, recursive = TRUE)
@@ -91,7 +107,7 @@ create_results_dirs <- function() {
   dir.create(results_path$gp$clusters, showWarnings = FALSE, recursive = TRUE)
   dir.create(results_path$drugs, showWarnings = FALSE, recursive = TRUE)
 }
-#Save Bioinfominer results
+
 save_bim_results <- function(enrichment_analysis, gene_prioritization, drugs, ontology, organism) {
   save_ea_helper <- function(enrichment_analysis, ontology) {
     ea_df <- as.data.frame(enrichment_analysis)
@@ -150,7 +166,7 @@ save_bim_results <- function(enrichment_analysis, gene_prioritization, drugs, on
     save_results_based_on_ontology(enrichment_analysis, gene_prioritization, drugs, ontology)
   }
 }
-#Load Bioinfominer Results
+
 load_bim_results <- function(headers, experiment_id, ontology) {
   ontology <- transform_ontology_string(ontology)
   results <- get_bim_results(headers, experiment_id, ontology)
@@ -163,3 +179,4 @@ load_bim_results <- function(headers, experiment_id, ontology) {
     save_bim_results(enrichment_analysis, gene_prioritization, drugs, ontology, organism)
   }
 }
+
