@@ -9,12 +9,12 @@ BioInfoMiner is an R package for interacting with the BioInfoMiner API. It helps
 install.packages("devtools")
 
 # Install BioInfoMiner from GitHub
-devtools::install_github("yourusername/BioInfoMiner")
+devtools::install_github("yourusername/BioInfoMinerLib")
 
 
 #Usage
 #Load the Library
-library(BioInfoMiner)
+library(BioInfoMinerLib)
 
 #Example# Set headers
 headers <- c(
