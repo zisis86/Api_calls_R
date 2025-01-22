@@ -26,7 +26,7 @@ It is recommended to use R Studio environment for the installation and execution
 install.packages("devtools")
 
 # Install BioInfoMiner from GitHub
-devtools::install_github("yourusername/BioInfoMinerLib")
+devtools::install_github("zisis86/Api_calls_R", subdir = "BioInfoMinerLib", auth_token = "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")
 
 
 #Usage
