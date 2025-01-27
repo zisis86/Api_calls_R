@@ -1,0 +1,166 @@
+* using log directory ‘/Users/dzisis/Downloads/BioInfoMinerNew/BioInfoMinerNew.Rcheck’
+* using R version 4.3.2 (2023-10-31)
+* using platform: aarch64-apple-darwin20 (64-bit)
+* R was compiled by
+    Apple clang version 14.0.0 (clang-1400.0.29.202)
+    GNU Fortran (GCC) 12.2.0
+* running under: macOS Sonoma 14.4.1
+* using session charset: UTF-8
+* checking for file ‘BioInfoMinerNew/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘BioInfoMinerNew’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘BioInfoMinerNew’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: package ‘jsonlite’ was built under R version 4.3.3
+  Warning: package ‘rlang’ was built under R version 4.3.3
+See ‘/Users/dzisis/Downloads/BioInfoMinerNew/BioInfoMinerNew.Rcheck/00install.out’ for details.
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+License components which are templates and need '+ file LICENSE':
+  MIT
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... NOTE
+Namespaces in Imports field not imported from:
+  ‘dplyr’ ‘httr’ ‘jsonlite’ ‘tidyr’
+  All declared Imports should be used.
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+create_bim_experiment: no visible global function definition for ‘POST’
+create_bim_experiment: no visible global function definition for
+  ‘add_headers’
+create_bim_experiment: no visible global function definition for
+  ‘status_code’
+create_bim_experiment: no visible global function definition for
+  ‘fromJSON’
+create_bim_experiment: no visible global function definition for
+  ‘content’
+create_project: no visible global function definition for ‘POST’
+create_project: no visible global function definition for ‘add_headers’
+create_project: no visible global function definition for ‘status_code’
+create_project: no visible global function definition for ‘fromJSON’
+create_project: no visible global function definition for ‘content’
+create_results_dirs: no visible binding for global variable
+  ‘results_path’
+delete_experiment: no visible global function definition for ‘DELETE’
+delete_experiment: no visible global function definition for
+  ‘add_headers’
+delete_experiment: no visible global function definition for
+  ‘status_code’
+delete_experiment: no visible global function definition for ‘content’
+delete_project: no visible global function definition for ‘DELETE’
+delete_project: no visible global function definition for ‘add_headers’
+delete_project: no visible global function definition for ‘status_code’
+delete_project: no visible global function definition for ‘content’
+get_bim_results : get_drugs_for_bim_results: no visible global function
+  definition for ‘GET’
+get_bim_results : get_drugs_for_bim_results: no visible global function
+  definition for ‘add_headers’
+get_bim_results : get_drugs_for_bim_results: no visible global function
+  definition for ‘toJSON’
+get_bim_results : get_drugs_for_bim_results: no visible global function
+  definition for ‘status_code’
+get_bim_results : get_drugs_for_bim_results: no visible global function
+  definition for ‘fromJSON’
+get_bim_results : get_drugs_for_bim_results: no visible global function
+  definition for ‘content’
+get_bim_results: no visible global function definition for ‘GET’
+get_bim_results: no visible global function definition for
+  ‘add_headers’
+get_bim_results: no visible global function definition for
+  ‘status_code’
+get_bim_results: no visible global function definition for ‘fromJSON’
+get_bim_results: no visible global function definition for
+  ‘isOntologyValid’
+get_bim_results: no visible global function definition for
+  ‘get_all_ontologies’
+get_bim_results: no visible global function definition for ‘content’
+get_status_message: no visible global function definition for ‘%||%’
+load_bim_results: no visible global function definition for
+  ‘transform_ontology_string’
+run_bim: no visible global function definition for ‘GET’
+run_bim: no visible global function definition for ‘add_headers’
+run_bim: no visible global function definition for ‘status_code’
+run_bim: no visible global function definition for ‘content’
+save_bim_results : save_ea_helper: no visible global function
+  definition for ‘write.csv’
+save_bim_results : save_ea_helper: no visible binding for global
+  variable ‘results_path’
+save_bim_results : save_gp_helper: no visible global function
+  definition for ‘write.csv’
+save_bim_results : save_gp_helper: no visible binding for global
+  variable ‘results_path’
+save_bim_results : save_drugs_helper: no visible global function
+  definition for ‘write.csv’
+save_bim_results : save_drugs_helper: no visible binding for global
+  variable ‘results_path’
+save_bim_results : save_results_based_on_ontology: no visible global
+  function definition for ‘get_GO_subontologies’
+save_bim_results: no visible global function definition for
+  ‘get_all_ontologies’
+Undefined global functions or variables:
+  %||% DELETE GET POST add_headers content fromJSON
+  get_GO_subontologies get_all_ontologies isOntologyValid results_path
+  status_code toJSON transform_ontology_string write.csv
+Consider adding
+  importFrom("utils", "write.csv")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘create_bim_experiment’ ‘create_project’ ‘get_bim_results’ ‘run_bim’
+  ‘save_bim_results’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... WARNING
+Functions or methods with usage in documentation object 'hello' but not in code:
+  ‘hello’
+
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... ERROR
+Running examples in ‘BioInfoMinerNew-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: hello
+> ### Title: Hello, World!
+> ### Aliases: hello
+> 
+> ### ** Examples
+> 
+> hello()
+Error in hello() : could not find function "hello"
+Execution halted
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+* checking PDF version of manual without index ... ERROR
+Re-running with no redirection of stdout/stderr.
+* DONE
+Status: 2 ERRORs, 4 WARNINGs, 3 NOTEs

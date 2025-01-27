@@ -1,0 +1,50 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8]{inputenc} % @SET ENCODING@
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `BioInfoMinerNew'}}
+\par\bigskip{\large \today}
+\end{center}
+\inputencoding{utf8}
+\ifthenelse{\boolean{Rd@use@hyper}}{\hypersetup{pdftitle = {BioInfoMinerNew: BioInfoMiner API Helper}}}{}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{BioInfoMiner API Helper}
+\item[Version]\AsIs{0.1.0}
+\item[Author]\AsIs{Your Name}
+\item[Maintainer]\AsIs{Your Name }\email{your\_email@example.com}\AsIs{}
+\item[Description]\AsIs{A package to interact with the BioInfoMiner API for creating projects, running experiments, and fetching results.}
+\item[License]\AsIs{MIT}
+\item[Encoding]\AsIs{UTF-8}
+\item[Imports]\AsIs{httr, jsonlite, dplyr, tidyr}
+\item[RoxygenNote]\AsIs{7.3.2}
+\item[NeedsCompilation]\AsIs{no}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{hello}{Hello, World!}{hello}
+%
+\begin{Description}
+Prints 'Hello, world!'.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+hello()
+\end{verbatim}
+\end{Usage}
+%
+\begin{Examples}
+\begin{ExampleCode}
+hello()
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}
