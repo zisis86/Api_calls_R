@@ -87,3 +87,12 @@ organism <- "human"
 
 # Test the saving function
 save_bim_results(enrichment_analysis, gene_prioritization, drugs, ontology, organism)
+
+
+#5. load_bim_results
+#Mock headers and IDs, and verify if results are loaded and saved correctly:
+headers <- c('Authorization' = 'Bearer example_token')  # Replace with valid token
+experiment_id <- '12345'
+ontology <- 'all'
+
+load_bim_results(headers, experiment_id, ontology)
