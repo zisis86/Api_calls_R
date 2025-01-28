@@ -113,8 +113,6 @@ gene_prioritization <- list(top_genes_configuration )
 drugs <- list(list(gene = "BRCA1", drugs = list(list(name = "Drug1"), list(name = "Drug2"))))
 ontology <- "all"
 organism <- "human"
-
-# 5. Test the saving function
 save_bim_results(enrichment_analysis, gene_prioritization, drugs, ontology, organism)
 
 
