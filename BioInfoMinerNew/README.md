@@ -114,7 +114,7 @@ drugs <- list(list(gene = "BRCA1", drugs = list(list(name = "Drug1"), list(name 
 ontology <- "all"
 organism <- "human"
 
-# Test the saving function
+# 5. Test the saving function
 save_bim_results(enrichment_analysis, gene_prioritization, drugs, ontology, organism)
 
 
