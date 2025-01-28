@@ -77,7 +77,36 @@ results <- get_bim_results(headers, experiment_id)
 print(results)  # Should return a list of enrichment_analysis, gene_prioritization, drugs, and organism
 save_bim_results(results[[1]], results[[2]])
 
-# Test Save_bim_results with a small example  
+
+# 4. Save_bim_results. Save all results 
+# Fetch results
+results <- get_bim_results(headers, experiment_id)
+
+if (!is.null(results)) {
+  # Extract individual components
+  enrichment_analysis <- results[[1]]
+  gene_prioritization <- results[[2]]
+  drugs <- results[[3]]  # Extract drugs if available
+  
+  # Specify ontology and organism
+  ontology <- "all"
+  organism <- "hsapiens"
+  
+  # Save results
+  save_bim_results(
+    enrichment_analysis = enrichment_analysis,
+    gene_prioritization = gene_prioritization,
+    drugs = drugs,
+    ontology = ontology,
+    organism = organism
+  )
+  
+  print("Results saved successfully.")
+} else {
+  print("No results available.")
+}
+
+# Test Save_bim_results with a small example  of particular genes 
 #Mock Input Data: Test a  small data for enrichment_analysis, gene_prioritization, and drugs
 enrichment_analysis <- list(sample_data = "example")
 gene_prioritization <- list(top_genes_configuration )
