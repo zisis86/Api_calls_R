@@ -102,23 +102,61 @@ delete_experiment <- function(headers, experiment_id) {
 
 # Function to run an experiment
 
-run_bim <- function(headers, execution_info) {
-  print('-- BioInfoMiner execution (please wait).. --')
+run_bim <- function(headers, execution_info, timeout_sec = 10) {
+  cat("-- BioInfoMiner execution (triggering job).. --\n")
 
-  #response <- GET(
-  # url = paste0(url, 'runbim'),
-  # add_headers(.headers = headers),
-  #  body = execution_info,
-  #  encode = "json"
-  #  )
-  response <- GET(paste0(url, 'runbim'), add_headers(.headers = headers), query = execution_info)
+  res <- tryCatch(
+    {
+      httr::GET(
+        paste0(url, "runbim"),
+        httr::add_headers(.headers = headers),
+        query   = execution_info,
+        httr::timeout(timeout_sec)  # don't let the call hang forever
+      )
+    },
+    error = function(e) e
+  )
 
-  if (status_code(response) == 200) {
-    print("Successful execution!")
+  if (inherits(res, "error")) {
+    cat("⚠ Request timed out or was too slow, but the job may still be running on the server.\n")
+    cat("Details:", conditionMessage(res), "\n")
+    invisible(FALSE)
+  } else if (httr::status_code(res) == 200) {
+    cat("✅ Execution successfully triggered!\n")
+    invisible(TRUE)
   } else {
-    print(paste("Error:", status_code(response), content(response, "text")))
+    cat("❌ Error:", httr::status_code(res), httr::content(res, "text"), "\n")
+    invisible(FALSE)
   }
 }
+
+wait_for_bim_completion <- function(headers,
+                                    experiment_id,
+                                    ontology   = "all",
+                                    max_checks = 30,
+                                    delay_sec  = 20) {
+  cat("-- Waiting for BioInfoMiner experiment:", experiment_id, "--\n")
+  cat("I will check status", max_checks, "times every", delay_sec, "seconds.\n\n")
+
+  for (i in seq_len(max_checks)) {
+    cat("Check", i, "of", max_checks, "...\n")
+
+    res <- get_bim_results(headers, experiment_id, ontology)
+
+    # get_bim_results returns list(NULL, NULL, NULL, NULL) if not completed
+    if (!is.null(res[[1]])) {
+      cat("✅ Experiment completed, results retrieved.\n")
+      return(res)
+    }
+
+    cat("Still not completed, waiting", delay_sec, "seconds...\n")
+    Sys.sleep(delay_sec)
+  }
+
+  warning("Experiment is still not completed after ", max_checks * delay_sec, " seconds.")
+  invisible(NULL)
+}
+
 
 # Function to get the results
 library(httr)
