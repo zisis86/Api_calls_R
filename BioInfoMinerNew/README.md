@@ -19,7 +19,7 @@ R Studio Environment:
  Language: R | It is recommended to use R Studio environment for the installation and execution of the Library. 
 
 
-## 🔧 Installation
+## Installation
 
 ```R
 # Option 1: Install devtools if not already installed
@@ -40,7 +40,7 @@ remotes::install_github(
 #Load the Library
 library(BioInfoMinerNew)
 
-# 🔐 Set API Key
+#Set API Key
 
 api_key <- "YOUR_API_KEY_HERE"
 
@@ -94,13 +94,13 @@ results <- wait_for_bim_completion(
 # 5. Get and Save Results Locally
 
 #get_bim_results() always returns a list of 4 elements:
-[[1]] = enrichment_analysis (or NULL if not ready)
-[[2]] = gene_prioritization (or NULL)
-[[3]] = drugs (or NULL)
-[[4]] = organism (or NULL)
+#[[1]] = enrichment_analysis (or NULL if not ready)
+#[[2]] = gene_prioritization (or NULL)
+#[[3]] = drugs (or NULL)
+#[[4]] = organism (or NULL)
 
 #When the experiment is not completed, it returns something like:
-list(NULL, NULL, NULL, NULL)
+#list(NULL, NULL, NULL, NULL)
 
 
 if (!is.null(results[[1]])) {
