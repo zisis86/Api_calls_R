@@ -57,7 +57,7 @@ project_id <- create_project(headers, list(title = "My Project", description = "
 dataset_path <- "/Path/to/your/input/input_dataset.csv"  # Adjust the path to your dataset
 dataset_content <- get_input_dataset(dataset_path)
 
-#3. Create an experiment
+# 3. Create an experiment
 bim_input <- list(
   title = "Experiment_Title",
   description = "Experiment created using R.",
@@ -72,7 +72,7 @@ bim_input <- list(
 )
 experiment_id <- create_bim_experiment(headers, bim_input)
 
-# 3. Run the experiment
+# 4. Run the experiment
 if (experiment_id != "") {
   execution_info <- list(
     experimentId = experiment_id,
@@ -81,7 +81,7 @@ if (experiment_id != "") {
   run_bim(headers, execution_info)   # returns quickly now
 }
 
-# 4. Wait for Completion (Auto-Polling)
+# 5. Wait for Completion (Auto-Polling)
 results <- wait_for_bim_completion(
   headers,
   experiment_id,
@@ -91,7 +91,7 @@ results <- wait_for_bim_completion(
 )
 
 
-# 5. Get and Save Results Locally
+# 6. Get and Save Results Locally
 
 #get_bim_results() always returns a list of 4 elements:
 #[[1]] = enrichment_analysis (or NULL if not ready)
