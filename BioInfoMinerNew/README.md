@@ -20,19 +20,22 @@ R Studio Environment:
 
 # Package Structure
 
+```text
 BioInfoMinerNew/
 ├── DESCRIPTION
 ├── NAMESPACE
 ├── R/
-│   ├── functions.R
-│   ├── helpers.R
-│   └── constant_variables.R
+│ ├── functions.R
+│ ├── helpers.R
+│ └── constant_variables.R
 └── README.md
+```
 
 functions.R contains the main API-facing functions.
 helpers.R and constant_variables.R define internal helpers and paths.
 
 # Troubleshooting
+
 Error: 524 A timeout occurred
 Timeout was reached: Operation too slow
 Those errors typically mean either The API request stayed open too long or the backend is still running the computation.
@@ -42,8 +45,11 @@ In cases like that:
 3. Once completed, use save_bim_results() or load_bim_results() to get the outputs
 
 # Contact
+
 zisis@e-nios.com
+
 E-NIOS Bioinformatics Services
+
 https://www.e-nios.com/
 
 
