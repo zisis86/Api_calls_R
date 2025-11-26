@@ -18,6 +18,35 @@ The repository in Github contains the following files:
 R Studio Environment:
  Language: R | It is recommended to use R Studio environment for the installation and execution of the Library. 
 
+# Package Structure
+
+BioInfoMinerNew/
+├── DESCRIPTION
+├── NAMESPACE
+├── R/
+│   ├── functions.R
+│   ├── helpers.R
+│   └── constant_variables.R
+└── README.md
+
+functions.R contains the main API-facing functions.
+helpers.R and constant_variables.R define internal helpers and paths.
+
+# Troubleshooting
+Error: 524 A timeout occurred
+Timeout was reached: Operation too slow
+Those errors typically mean either The API request stayed open too long or the backend is still running the computation.
+In cases like that:
+1. Check the experiment in the BioInfoMiner web platform
+2. Use wait_for_bim_completion(headers, experiment_id) to poll for completion
+3. Once completed, use save_bim_results() or load_bim_results() to get the outputs
+
+# Contact
+zisis@e-nios.com
+E-NIOS Bioinformatics Services
+https://www.e-nios.com/
+
+
 
 ## Installation
 
