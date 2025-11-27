@@ -36,9 +36,8 @@ helpers.R and constant_variables.R define internal helpers and paths.
 
 # Troubleshooting
 
-Error: 524 A timeout occurred
-
-Timeout was reached: Operation too slow
+_**Error: 524 A timeout occurred
+Timeout was reached: Operation too slow**_
 
 Those errors typically mean either The API request stayed open too long or the backend is still running the computation.
 In cases like that:
