@@ -37,7 +37,9 @@ helpers.R and constant_variables.R define internal helpers and paths.
 # Troubleshooting
 
 Error: 524 A timeout occurred
+
 Timeout was reached: Operation too slow
+
 Those errors typically mean either The API request stayed open too long or the backend is still running the computation.
 In cases like that:
 1. Check the experiment in the BioInfoMiner web platform
