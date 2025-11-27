@@ -20,7 +20,7 @@ R Studio Environment:
 
 # Package Structure
 
-```text
+
 BioInfoMinerNew/
 ├── DESCRIPTION
 ├── NAMESPACE
@@ -36,10 +36,11 @@ helpers.R and constant_variables.R define internal helpers and paths.
 
 # Troubleshooting
 
+```text
 _Error: 524 A timeout occurred_
 
 _Timeout was reached: Operation too slow_
-
+```
 Those errors typically mean either The API request stayed open too long or the backend is still running the computation.
 In cases like that:
 1. Check the experiment in the BioInfoMiner web platform
