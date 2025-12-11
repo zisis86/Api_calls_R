@@ -32,3 +32,43 @@ isOntologyValid <- function(ontology, organism) {
   valid_ontologies <- c(get_all_ontologies(organism), "all")
   return(ontology %in% valid_ontologies)
 }
+
+# ------------------------------------------------------------
+# Extract first column from any input file (CSV, TSV, TXT)
+# and return a clean gene list for input_ids
+# ------------------------------------------------------------
+
+extract_gene_list <- function(path) {
+
+  if (!file.exists(path)) {
+    stop("File does not exist: ", path)
+  }
+
+  ext <- tolower(tools::file_ext(path))
+
+  # Try reading with header TRUE, fallback to FALSE
+  df <- tryCatch({
+      if (ext %in% c("tsv", "txt")) {
+        read.delim(path, header = TRUE, stringsAsFactors = FALSE)
+      } else {
+        read.csv(path, header = TRUE, stringsAsFactors = FALSE)
+      }
+    },
+    error = function(e) {
+      if (ext %in% c("tsv", "txt")) {
+        read.delim(path, header = FALSE, stringsAsFactors = FALSE)
+      } else {
+        read.csv(path, header = FALSE, stringsAsFactors = FALSE)
+      }
+    }
+  )
+
+  # Always extract the FIRST column
+  genes <- df[, 1]
+
+  # Clean it
+  genes <- genes[genes != "" & !is.na(genes)]
+
+  # Return newline-separated gene list
+  paste(genes, collapse = "\n")
+}
