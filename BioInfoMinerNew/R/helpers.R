@@ -1,7 +1,7 @@
 library(rlang)
 
 # ------------------------------------------------------------
-# Ontology utilities (unchanged)
+# Ontology utilities
 # ------------------------------------------------------------
 
 transform_ontology_string <- function(ontology) {
@@ -21,9 +21,9 @@ get_GO_subontologies <- function() {
 
 get_all_ontologies <- function(organism) {
   ontologies_map <- list(
-    hsapiens     = c("GO", "MGIMP", "Reactome", "HPO"),
-    mmusculus    = c("GO", "MGIMP", "Reactome"),
-    rnorvegicus  = c("GO", "MGIMP", "Reactome")
+    hsapiens    = c("GO", "MGIMP", "Reactome", "HPO"),
+    mmusculus   = c("GO", "MGIMP", "Reactome"),
+    rnorvegicus = c("GO", "MGIMP", "Reactome")
   )
   return(ontologies_map[[organism]])
 }
@@ -35,7 +35,7 @@ isOntologyValid <- function(ontology, organism) {
 
 # ------------------------------------------------------------
 # Extract first column from any input file (CSV, TSV, TXT)
-# and return a clean gene list for input_ids
+# and return a clean gene list for input_ids mode
 # ------------------------------------------------------------
 
 extract_gene_list <- function(path) {
@@ -46,7 +46,7 @@ extract_gene_list <- function(path) {
 
   ext <- tolower(tools::file_ext(path))
 
-  # Try reading with header TRUE, fallback to FALSE
+  # Try reading with header = TRUE, fallback to header = FALSE
   df <- tryCatch({
       if (ext %in% c("tsv", "txt")) {
         read.delim(path, header = TRUE, stringsAsFactors = FALSE)
@@ -63,12 +63,12 @@ extract_gene_list <- function(path) {
     }
   )
 
-  # Always extract the FIRST column
+  # Always extract the FIRST column as genes
   genes <- df[, 1]
 
-  # Clean it
+  # Remove empty rows
   genes <- genes[genes != "" & !is.na(genes)]
 
-  # Return newline-separated gene list
+  # Return newline-separated gene list (for input_ids)
   paste(genes, collapse = "\n")
 }
