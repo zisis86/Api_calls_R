@@ -91,23 +91,25 @@ headers <- c(
 project_id <- create_project(headers, list(title = "My Project", description = "Testing BioInfoMiner API from R"))
 
 # 2. Load Input Dataset
-dataset_path <- "/Path/to/your/input/input_dataset.csv"  # Adjust the path to your dataset
-dataset_content <- get_input_dataset(dataset_path)
+gene_file <- "C:/Path/to/your/input/genes.csv"
+input_ids <- get_input_dataset(gene_file)
 
 # 3. Create an experiment
 bim_input <- list(
-  title = "Experiment_Title",
+  title       = "Experiment_Title",
   description = "Experiment created using R.",
-  project = project_id,
-  parameters = list(
-    input_ids = dataset_content,
-    fold_change_type = "log",
-    corrected_pvalue = 0.05,
-    id_type = "gene_symbol",
-    organism = "hsapiens"
+  project     = project_id,
+  parameters  = list(
+    input_ids         = input_ids,     # unified gene list input
+    fold_change_type  = "log",
+    corrected_pvalue  = 0.05,
+    id_type           = "gene_symbol",
+    organism          = "hsapiens"
   )
 )
+
 experiment_id <- create_bim_experiment(headers, bim_input)
+
 
 # 4. Run the experiment
 if (experiment_id != "") {
