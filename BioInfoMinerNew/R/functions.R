@@ -58,10 +58,45 @@ delete_project <- function(headers, project_id) {
 
 # # Function to upload input dataset and Function to create an experiment
 
+# Function to load input dataset for input_ids mode
+# Works for CSV, TSV, TXT, 1+ columns
+# Always uses the FIRST column as gene list
+
 get_input_dataset <- function(dataset_name) {
-  csv_content <- readChar(dataset_name, file.info(dataset_name)$size)
-  return(csv_content)
+
+  if (!file.exists(dataset_name)) {
+    stop("File does not exist: ", dataset_name)
+  }
+
+  ext <- tolower(tools::file_ext(dataset_name))
+
+  # Try reading with header = TRUE, then fallback to header = FALSE
+  df <- tryCatch({
+      if (ext %in% c("tsv", "txt")) {
+        read.delim(dataset_name, header = TRUE, stringsAsFactors = FALSE)
+      } else {
+        read.csv(dataset_name, header = TRUE, stringsAsFactors = FALSE)
+      }
+    },
+    error = function(e) {
+      if (ext %in% c("tsv", "txt")) {
+        read.delim(dataset_name, header = FALSE, stringsAsFactors = FALSE)
+      } else {
+        read.csv(dataset_name, header = FALSE, stringsAsFactors = FALSE)
+      }
+    }
+  )
+
+  # Always use the FIRST column as gene IDs
+  genes <- df[, 1]
+
+  # Remove empty / NA
+  genes <- genes[genes != "" & !is.na(genes)]
+
+  # Return newline-separated gene list text for input_ids
+  paste(genes, collapse = "\n")
 }
+
 
 create_bim_experiment <- function(headers, bim_input) {
   print('-- BioInfoMiner experiment creation.. --')
