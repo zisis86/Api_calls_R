@@ -220,3 +220,14 @@ load_bim_results(headers, experiment_id, ontology)
 cat("If the experiment has completed, results will be saved in the 'results/' directory.\n")
 
 
+## Systemic Interpretation Viewer (DAG)
+
+Interactive DAG viewer for BioInfoMiner results (GO / REACTOME / any ontology present in your output).
+
+### Run with the built-in example JSON (shipped with the package)
+
+```r
+library(BioInfoMinerNew)
+
+# Loads inst/examples/Onlygenes_CSV.json automatically
+bim_systemic_viewer(ontology = "GO")
