@@ -13,7 +13,10 @@ Imports:
     httr,
     jsonlite,
     dplyr,
-    tidyr
+    tidyr,
+    shiny,
+    visNetwork,
+    htmltools
 RoxygenNote: 7.3.2
 LazyData: true
 
