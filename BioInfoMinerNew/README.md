@@ -222,9 +222,41 @@ cat("If the experiment has completed, results will be saved in the 'results/' di
 # Systemic Interpretation Viewer (DAG)
 ##Interactive DAG viewer for BioInfoMiner results (GO / REACTOME / any ontology present in your output).
 
-### Run with the built-in example JSON (shipped with the package)
+### Run with the built-in example JSON (shipped with the package) - Results already loaded
 
 library(BioInfoMinerNew)
 
 # Loads inst/examples/Onlygenes_CSV.json automatically
 bim_systemic_viewer(ontology = "GO")
+
+
+## Run with your own JSON results file
+library(BioInfoMinerNew)
+
+bim_systemic_viewer(
+  json_path = "BioInfoMiner_results.json",
+  ontology  = "REACTOME"
+)
+
+
+## Troubleshooting
+
+
+---
+
+# F) Reinstall the library (local) and run it
+
+From R, with your working directory at the repo root **or** using the full path:
+
+```r
+# If needed:
+install.packages(c("shiny","visNetwork","jsonlite","htmltools"))
+
+# Reinstall your package from the local folder:
+install.packages("Api_calls_R/BioInfoMinerNew", repos = NULL, type = "source")
+
+# Load and run:
+library(BioInfoMinerNew)
+bim_systemic_viewer(ontology = "GO")
+
+
