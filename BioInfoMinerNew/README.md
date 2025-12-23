@@ -288,8 +288,6 @@ In cases like that:
 Timeout errors usually indicate that the experiment is still running.
 Use `wait_for_bim_completion()` to poll until results are ready.
 
----
-
 # Reinstall the library (local) and run it
 
 From R, with your working directory at the repo root **or** using the full path:
