@@ -290,6 +290,21 @@ Use `wait_for_bim_completion()` to poll until results are ready.
 
 ---
 
+# Reinstall the library (local) and run it
+
+From R, with your working directory at the repo root **or** using the full path:
+
+```r
+# If needed:
+install.packages(c("shiny","visNetwork","jsonlite","htmltools"))
+
+# Reinstall your package from the local folder:
+install.packages("Api_calls_R/BioInfoMinerNew", repos = NULL, type = "source")
+
+# Load and run:
+library(BioInfoMinerNew)
+bim_systemic_viewer(ontology = "GO")
+
 ## Contact
 
 E-NIOS Bioinformatics Services  
